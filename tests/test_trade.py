@@ -1,3 +1,5 @@
+from tabnanny import check
+
 import numpy as np
 import pandas as pd
 import pytest
@@ -6,6 +8,7 @@ from epymetheus import Trade
 from epymetheus import trade
 from epymetheus.benchmarks import RandomStrategy
 from epymetheus.datasets import make_randomwalk
+from epymetheus.trade import check_trade
 
 
 class TestTrade:
@@ -71,7 +74,7 @@ class TestTrade:
     def test_array_value_value_hand(self):
         t = [2.0, -3.0] * trade(["A", "B"], entry=1, exit=3)
         result = t.array_value(self.universe_hand)
-        expected = np.array(
+        expect = np.array(
             [
                 [6.0, -6.0],
                 [2.0, -21.0],
@@ -82,18 +85,18 @@ class TestTrade:
                 [4.0, -3.0],
             ]
         )
-        assert np.allclose(result, expected)
+        assert np.allclose(result, expect)
 
         t = [-3.0, 2.0] * trade(["B", "A"], entry=1, exit=3)
         result = t.array_value(universe=self.universe_hand)
-        expected = expected[:, [1, 0]]
-        assert np.allclose(result, expected)
+        expect = expect[:, [1, 0]]
+        assert np.allclose(result, expect)
 
     def test_array_value_value_zero(self):
         t = 0.0 * trade(["A", "B"], entry=1, exit=3)
         result = t.array_value(self.universe_hand)
-        expected = np.zeros_like(self.universe_hand.iloc[:, :2])
-        assert np.allclose(result, expected)
+        expect = np.zeros_like(self.universe_hand.iloc[:, :2])
+        assert np.allclose(result, expect)
 
     @pytest.mark.parametrize("seed", [0])
     def test_array_value_linearity_add(self, seed):
@@ -105,9 +108,9 @@ class TestTrade:
         t1 = list(lot1) * trade(["A", "B"], entry=1, exit=3)
         ta = list(lot0 + lot1) * trade(["A", "B"], entry=1, exit=3)
         result = ta.array_value(universe)
-        expected = t0.array_value(universe) + t1.array_value(universe)
+        expect = t0.array_value(universe) + t1.array_value(universe)
 
-        assert np.allclose(result, expected)
+        assert np.allclose(result, expect)
 
     @pytest.mark.parametrize("a", [-2.0, -1.0, 0.0, 1.0, 2.0])
     @pytest.mark.parametrize("seed", [0])
@@ -119,9 +122,9 @@ class TestTrade:
         t0 = list(lot0) * trade(["A", "B"], entry=1, exit=3)
         ta = list(a * lot0) * trade(["A", "B"], entry=1, exit=3)
         result = ta.array_value(universe)
-        expected = a * t0.array_value(universe)
+        expect = a * t0.array_value(universe)
 
-        assert np.allclose(result, expected)
+        assert np.allclose(result, expect)
 
     @pytest.mark.parametrize("seed", [0])
     def test_final_pnl_lineality_add(self, seed):
@@ -136,20 +139,20 @@ class TestTrade:
         t1.execute(universe)
         ta.execute(universe)
         result = ta.final_pnl(universe)
-        expected = t0.final_pnl(universe) + t1.final_pnl(universe)
+        expect = t0.final_pnl(universe) + t1.final_pnl(universe)
 
-        assert np.allclose(result, expected)
+        assert np.allclose(result, expect)
 
     def test_nonexitent(self):
         """non-existent asset, entry, exit"""
         universe = pd.DataFrame({"A": range(10)})
 
         with pytest.raises(KeyError):
-            t = trade("NONEXISTENT").execute(universe)
+            _ = trade("NONEXISTENT").execute(universe)
         with pytest.raises(KeyError):
-            t = trade("A", entry=99).execute(universe)
+            _ = trade("A", entry=99).execute(universe)
         with pytest.raises(KeyError):
-            t = trade("A", entry=0, exit=99).execute(universe)
+            _ = trade("A", entry=0, exit=99).execute(universe)
 
     @pytest.mark.parametrize("a", [-2.0, -1.0, 0.0, 1.0, 2.0])
     @pytest.mark.parametrize("seed", [0])
@@ -163,9 +166,11 @@ class TestTrade:
         t0.execute(universe)
         ta.execute(universe)
         result = ta.final_pnl(universe)
-        expected = a * t0.final_pnl(universe)
+        expect = a * t0.final_pnl(universe)
 
-        assert np.allclose(result, expected)
+        assert np.allclose(result, expect)
+
+    # --- load and dump ---
 
     def test_load_history(self):
         history = pd.DataFrame(
@@ -185,6 +190,42 @@ class TestTrade:
             trade([0, 1], lot=[1, 2], entry=0, exit=100, take=10, stop=-10),
             trade(2, lot=3, entry=1, exit=101, take=11, stop=-11),
         ]
+
+    def test_to_dict(self):
+        t = 2.0 * trade("A", entry=1, exit=3)
+        result = t.to_dict()
+        expect = dict(asset=["A"], entry=1, exit=3, lot=[2.0])
+        assert result == expect
+
+        t = list([1.0, 2.0]) * trade(["A", "B"], entry=1, exit=3)
+        result = t.to_dict()
+        expect = dict(asset=["A", "B"], entry=1, exit=3, lot=[1.0, 2.0])
+        assert result == expect
+
+        t.close = 5  # when executed
+        result = t.to_dict()
+        expect = dict(asset=["A", "B"], entry=1, exit=3, lot=[1.0, 2.0], close=5)
+        assert result == expect
+
+    def test_to_json(self):
+        t = 2.0 * trade("A", entry=1, exit=3)
+
+        result = t.to_json()
+        expect = '{"asset": ["A"], "lot": [2.0], "entry": 1, "exit": 3}'
+        assert result == expect
+
+        t = list([1.0, 2.0]) * trade(["A", "B"], entry=1, exit=3)
+        result = t.to_json()
+        expect = '{"asset": ["A", "B"], "lot": [1.0, 2.0], "entry": 1, "exit": 3}'
+        assert result == expect
+
+    def test_from_json(self):
+        t = 2.0 * trade("A", entry=1, exit=3)
+        assert t == Trade.load_json(t.to_json())
+        t = list([1.0, 2.0]) * trade(["A", "B"], entry=1, exit=3)
+        assert t == Trade.load_json(t.to_json())
+
+    # --- operations ---
 
     def test_eq(self):
         t = trade("A")
@@ -268,6 +309,42 @@ class TestTrade:
             ["A", "B"], lot=[1 / a, -2.0 / a], entry=0, exit=1, take=2.0, stop=-3.0
         )
         assert result == expect
+
+
+class TestCheckTrade:
+    def test(self):
+        universe = pd.DataFrame({"A": [100, 101, 102]}, index=[0, 1, 2])
+
+        # asset
+        with pytest.raises(ValueError):
+            t = trade("NONEXISTENT_ASSET")
+            check_trade(t, universe)
+
+        # index
+        with pytest.raises(ValueError):
+            t = trade("A", entry=99)
+            check_trade(t, universe)
+        with pytest.raises(ValueError):
+            t = trade("A", entry=0, exit=99)
+            check_trade(t, universe)
+
+        # lot
+        with pytest.raises(ValueError):
+            t = trade("A", lot=[np.nan])
+            check_trade(t, universe)
+        with pytest.raises(ValueError):
+            t = trade("A", lot=[np.inf])
+            check_trade(t, universe)
+
+        # take
+        with pytest.raises(ValueError):
+            t = trade("A", take=-1.0)
+            check_trade(t, universe)
+
+        # stop
+        with pytest.raises(ValueError):
+            t = trade("A", stop=1.0)
+            check_trade(t, universe)
 
 
 # @pytest.mark.parametrize("seed", params_seed)

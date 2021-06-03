@@ -1,7 +1,10 @@
+import json
 from copy import deepcopy
 
 import numpy as np
 import pandas as pd
+
+from ._utils import to_json
 
 
 def trade(asset, entry=None, exit=None, take=None, stop=None, lot=1.0, **kwargs):
@@ -248,6 +251,95 @@ class Trade:
             trades.append(cls(**kwargs))
         return trades
 
+    def to_dict(self) -> dict:
+        """
+        Represents and returns `self` as `dict` object.
+
+        Returns
+        -------
+        trade_as_dict : dict
+            Trade represented as `dict` object.
+
+        Examples
+        --------
+        >>> import epymetheus as ep
+
+        >>> trade = ep.trade("A0", entry=1, exit=6, take=2)
+        >>> trade.to_dict()
+        {'asset': ['A0'], 'lot': [1.0], 'entry': 1, 'exit': 6, 'take': 2}
+        """
+        trade_as_dict = dict(asset=self.asset.tolist(), lot=self.lot.tolist())
+        for attr in ("entry", "exit", "take", "stop", "close"):
+            if getattr(self, attr, None) is not None:
+                trade_as_dict[attr] = getattr(self, attr)
+
+        if hasattr(self, "close"):
+            trade_as_dict["close"] = self.close
+
+        return trade_as_dict
+
+    def to_json(self) -> str:
+        """
+        Represents and returns `self` as a string in JSON format.
+
+        Returns
+        -------
+        trade_as_json : str
+            `self` as a string in JSON format.
+
+        Examples
+        --------
+        >>> import epymetheus as ep
+
+        >>> trade = ep.trade("A0", entry=1, exit=6, take=2)
+        >>> trade.to_json()
+        '{"asset": ["A0"], "lot": [1.0], "entry": 1, "exit": 6, "take": 2}'
+
+        >>> s = trade.to_json()
+        >>> ep.Trade.load_json(s)
+        trade(['A0'], lot=[1.], entry=1, exit=6, take=2)
+        """
+        return to_json(self.to_dict())
+
+    @classmethod
+    def load_json(cls, s: str) -> "Trade":
+        """
+        Loads JSON and creates a `Trade`.
+
+        Parameters
+        ----------
+        s : str
+            JSON string
+
+        Returns
+        -------
+        trade : Trade
+        """
+        return cls.load_dict(json.loads(s))
+
+    @classmethod
+    def load_dict(cls, d: dict) -> "Trade":
+        """
+        Loads `dict` object and creates a `Trade`.
+
+        Parameters
+        ----------
+        d : dict
+
+        Returns
+        -------
+        trade : Trade
+        """
+        close = None
+        if "close" in d:
+            # __init__ does not have a parameter "close"
+            close = d["close"]
+            del d["close"]
+        trade = cls(**d)
+        if close is not None:
+            trade.close = close
+        return trade
+
     def __eq__(self, other):
         def eq(t0, t1, attr):
             attr0 = getattr(t0, attr)
@@ -330,3 +422,69 @@ class Trade:
                 params.append(f"{attr}={value}")
 
         return f"trade({', '.join(params)})"
+
+
+def check_trade(
+    trade: Trade,
+    universe: pd.DataFrame,
+    check_asset: bool = True,
+    check_index: bool = True,
+    check_lot: bool = True,
+    check_take: bool = True,
+    check_stop: bool = True,
+):
+    """
+    Validation for `Trade`.
+
+    Parameters
+    ----------
+    trade : Trade
+        Trade object to validate.
+    universe : pd.DataFrame
+        Universe (price data) to apply `trade`.
+    check_asset : bool, default=True
+    check_index : bool, default=True
+    check_lot : bool, default=True
+    check_take : bool, default=True
+    check_stop : bool, default=True
+
+    Raises
+    ------
+    ValueError
+        When something is wrong with validation.
+
+    Examples
+    --------
+    >>> import epymetheus as ep
+    >>> from epymetheus.trade import check_trade
+
+    >>> universe = pd.DataFrame({"A": [100, 101, 102]}, index=[0, 1, 2])
+    >>> trade = ep.trade("A", entry=1)
+    >>> check_trade(trade, universe)  # OK
+    """
+    if check_asset:
+        for a in trade.asset:
+            if a not in universe.columns:
+                raise ValueError("asset is not found in index:", a)
+
+    if check_index:
+        if getattr(trade, "entry", None) is not None:
+            if trade.entry not in universe.index:
+                raise ValueError("entry is not found in index:", trade.entry)
+        if getattr(trade, "exit", None) is not None:
+            if trade.exit not in universe.index:
+                raise ValueError("exit is not found in index:", trade.exit)
+
+    if check_lot:
+        if not np.isfinite(trade.lot).all():
+            raise ValueError("lot is not finite:", trade.lot)
+
+    if check_take:
+        if getattr(trade, "take", None) is not None:
+            if trade.take < 0:
+                raise ValueError("take should be nonnegative, got:", trade.take)
+
+    if check_stop:
+        if getattr(trade, "stop", None) is not None:
+            if trade.stop > 0:
+                raise ValueError("stop should be nonpositive, got:", trade.stop)
