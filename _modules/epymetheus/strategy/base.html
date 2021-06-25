@@ -1,0 +1,548 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
+
+    <meta name="generator" content="sphinx-4.0.2, furo 2021.06.24.beta37"/>
+        <title>epymetheus.strategy.base - Epymetheus documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css" />
+    
+
+
+<style>
+  :root {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+
+  /* For allowing end-user-specific overrides */
+  .override-light {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  .override-dark {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+</style><link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../../_static/pygments_dark.css"></head>
+  <body dir="">
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z"/>
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../index.html"><div class="brand">Epymetheus  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../index.html">
+  
+  
+  <span class="sidebar-brand-text">Epymetheus  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html">
+  <input class="sidebar-search" placeholder=Search name="q">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../strategy.html">epymetheus.Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trade.html">epymetheus.Trade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../datasets.html">epymetheus.datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../benchmarks.html">epymetheus.benchmarks</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/epymetheus/epymetheus">GitHub</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <main class="main">
+    <div class="content">
+      <article role="main">
+        <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        </label>
+        <h1>Source code for epymetheus.strategy.base</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">ts</span>
+<span class="kn">from</span> <span class="nn">.._utils</span> <span class="kn">import</span> <span class="n">print_if_verbose</span>
+<span class="kn">from</span> <span class="nn">.._utils</span> <span class="kn">import</span> <span class="n">to_json</span>
+<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="n">NoTradeWarning</span>
+<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="n">NotRunError</span>
+<span class="kn">from</span> <span class="nn">..metrics</span> <span class="kn">import</span> <span class="n">metric_from_name</span>
+<span class="kn">from</span> <span class="nn">..trade</span> <span class="kn">import</span> <span class="n">Trade</span>
+<span class="kn">from</span> <span class="nn">..trade</span> <span class="kn">import</span> <span class="n">check_trade</span>
+
+
+<div class="viewcode-block" id="create_strategy"><a class="viewcode-back" href="../../../strategy.html#epymetheus.create_strategy">[docs]</a><span class="k">def</span> <span class="nf">create_strategy</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+    <span class="sd">"""Create a :class:`Strategy` from a function.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        fn (callable): Function that returns iterable of :class:`Trade`</span>
+<span class="sd">            from universe and parameters.</span>
+<span class="sd">        **params: Parameter values.</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; import epymetheus as ep</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; def fn(universe, my_param):</span>
+<span class="sd">        ...     yield my_param * ep.trade("AAPL")</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; strategy = ep.create_strategy(fn, my_param=2.0)</span>
+<span class="sd">        &gt;&gt;&gt; universe = ...</span>
+<span class="sd">        &gt;&gt;&gt; strategy(universe)</span>
+<span class="sd">        [trade(['AAPL'], lot=[2.])]</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="n">Strategy</span><span class="o">.</span><span class="n">_create_strategy</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Strategy"><a class="viewcode-back" href="../../../strategy.html#epymetheus.Strategy">[docs]</a><span class="k">class</span> <span class="nc">Strategy</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="sd">"""Base class of trading strategy.</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">        Initialize by subclassing</span>
+
+<span class="sd">        &gt;&gt;&gt; import epymetheus as ep</span>
+<span class="sd">        &gt;&gt;&gt; from epymetheus import Strategy</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; class MyStrategy(Strategy):</span>
+<span class="sd">        ...     def __init__(self, param):</span>
+<span class="sd">        ...         self.param = param</span>
+<span class="sd">        ...</span>
+<span class="sd">        ...     def logic(self, universe):</span>
+<span class="sd">        ...         return [self.param * ep.trade("A")]</span>
+<span class="sd">        ...</span>
+<span class="sd">        &gt;&gt;&gt; strategy = MyStrategy(param=2.0)</span>
+<span class="sd">        &gt;&gt;&gt; universe = ...</span>
+<span class="sd">        &gt;&gt;&gt; strategy(universe)</span>
+<span class="sd">        [trade(['A'], lot=[2.])]</span>
+<span class="sd">    """</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_create_strategy</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="bp">self</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_f</span> <span class="o">=</span> <span class="n">f</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_params</span> <span class="o">=</span> <span class="n">params</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">universe</span><span class="p">,</span> <span class="n">to_list</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"_f"</span><span class="p">):</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"logic"</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_f</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">get_params</span><span class="p">()))</span>
+        <span class="n">trades</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logic</span><span class="p">(</span><span class="n">universe</span><span class="p">)</span>
+        <span class="n">trades</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">trades</span><span class="p">)</span> <span class="k">if</span> <span class="n">to_list</span> <span class="k">else</span> <span class="n">trades</span>
+        <span class="k">return</span> <span class="n">trades</span>
+
+<div class="viewcode-block" id="Strategy.logic"><a class="viewcode-back" href="../../../strategy.html#epymetheus.Strategy.logic">[docs]</a>    <span class="k">def</span> <span class="nf">logic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">universe</span><span class="p">):</span>
+        <span class="sd">"""Logic to generate trades from universe.</span>
+
+<span class="sd">        Override this to implement trading strategy by subclassing `Strategy`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            universe (pandas.DataFrame): Historical price data to apply this strategy.</span>
+<span class="sd">                The index represents timestamps and the column is the assets.</span>
+<span class="sd">            **params: Parameter values.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            iterable[Trade]</span>
+<span class="sd">        """</span></div>
+
+<div class="viewcode-block" id="Strategy.run"><a class="viewcode-back" href="../../../strategy.html#epymetheus.Strategy.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">universe</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check_trades</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">"""Run a backtesting of strategy.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            universe (pandas.DataFrame): Historical price data to apply this strategy.</span>
+<span class="sd">                The index represents timestamps and the column is the assets.</span>
+<span class="sd">            verbose (bool, default=True): Verbose mode.</span>
+<span class="sd">            check_trade (bool, default=False):</span>
+<span class="sd">                If `True`, check that `asset`, `entry`, `exit` of trade</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            self</span>
+<span class="sd">        """</span>
+        <span class="n">_begin_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">universe</span> <span class="o">=</span> <span class="n">universe</span>
+
+        <span class="c1"># Yield trades</span>
+        <span class="n">_begin_time_yield</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+        <span class="n">trades</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">(</span><span class="n">universe</span><span class="p">,</span> <span class="n">to_list</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]):</span>
+            <span class="n">print_if_verbose</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="se">\r</span><span class="si">{</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2"> trades returned: </span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s2"> ... "</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">check_trades</span><span class="p">:</span>
+                <span class="n">check_trade</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">universe</span><span class="p">)</span>
+            <span class="n">trades</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">trades</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">NoTradeWarning</span><span class="p">(</span><span class="s2">"No trade was returned."</span><span class="p">)</span>
+        <span class="n">_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">_begin_time_yield</span>
+        <span class="n">print_if_verbose</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Done. (Runtume: </span><span class="si">{</span><span class="n">_time</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> sec)"</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+
+        <span class="c1"># Execute trades</span>
+        <span class="n">_begin_time_execute</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">trades</span><span class="p">):</span>
+            <span class="n">print_if_verbose</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="se">\r</span><span class="si">{</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2"> trades executed: </span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s2"> ... "</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span>
+            <span class="p">)</span>
+            <span class="n">t</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">universe</span><span class="p">)</span>
+        <span class="n">_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">_begin_time_execute</span>
+        <span class="n">print_if_verbose</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Done. (Runtime: </span><span class="si">{</span><span class="n">_time</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> sec)"</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">trades</span> <span class="o">=</span> <span class="n">trades</span>
+
+        <span class="n">_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">_begin_time</span>
+        <span class="n">final_wealth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="s2">"final_wealth"</span><span class="p">)</span>
+        <span class="n">print_if_verbose</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"Done. Final wealth: </span><span class="si">{</span><span class="n">final_wealth</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> (Runtime: </span><span class="si">{</span><span class="n">_time</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> sec)"</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="Strategy.score"><a class="viewcode-back" href="../../../strategy.html#epymetheus.Strategy.score">[docs]</a>    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metric_name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">"""Returns the value of a metric of self.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            metric_name (str): Metric to evaluate.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            float</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"trades"</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">NotRunError</span><span class="p">(</span><span class="s2">"Strategy has not been run"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">metric_from_name</span><span class="p">(</span><span class="n">metric_name</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">universe</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Strategy.history"><a class="viewcode-back" href="../../../strategy.html#epymetheus.Strategy.history">[docs]</a>    <span class="k">def</span> <span class="nf">history</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="sd">"""Return `pandas.DataFrame` of trade history.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pandas.DataFrame</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"trades"</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">NotRunError</span><span class="p">(</span><span class="s2">"Strategy has not been run"</span><span class="p">)</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">n_orders</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">asset</span><span class="o">.</span><span class="n">size</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="p">])</span>
+
+        <span class="n">data</span><span class="p">[</span><span class="s2">"trade_id"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="p">)),</span> <span class="n">n_orders</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">"asset"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">asset</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="p">])</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">"lot"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">lot</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="p">])</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">"entry"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">entry</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="p">],</span> <span class="n">n_orders</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">"close"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">close</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="p">],</span> <span class="n">n_orders</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">"exit"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">exit</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="p">],</span> <span class="n">n_orders</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">"take"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">take</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="p">],</span> <span class="n">n_orders</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">"stop"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">stop</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="p">],</span> <span class="n">n_orders</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">"pnl"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">final_pnl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">universe</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Strategy.trades_to_dict"><a class="viewcode-back" href="../../../strategy.html#epymetheus.Strategy.trades_to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">trades_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">"""Represents and returns `trades` as `dict` objects.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[dict]</span>
+
+<span class="sd">        Examples:</span>
+
+<span class="sd">            &gt;&gt;&gt; import epymetheus as ep</span>
+<span class="sd">            &gt;&gt;&gt;</span>
+<span class="sd">            &gt;&gt;&gt; strategy = ep.create_strategy(</span>
+<span class="sd">            ...     lambda universe: [ep.trade("AAPL")]</span>
+<span class="sd">            ... ).run(pd.DataFrame({"AAPL": [100, 101]}), verbose=False)</span>
+<span class="sd">            &gt;&gt;&gt; strategy.trades_to_dict()</span>
+<span class="sd">            [{'asset': ['AAPL'], 'lot': [1.0], 'close': 1}]</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">trade</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">trade</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Strategy.trades_to_json"><a class="viewcode-back" href="../../../strategy.html#epymetheus.Strategy.trades_to_json">[docs]</a>    <span class="k">def</span> <span class="nf">trades_to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Represents and returns `trades` as a string in JSON format.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str</span>
+
+<span class="sd">        Examples:</span>
+
+<span class="sd">            &gt;&gt;&gt; import epymetheus as ep</span>
+<span class="sd">            &gt;&gt;&gt;</span>
+<span class="sd">            &gt;&gt;&gt; strategy = ep.create_strategy(</span>
+<span class="sd">            ...     lambda universe: [ep.trade("AAPL")]</span>
+<span class="sd">            ... ).run(pd.DataFrame({"AAPL": [100, 101]}), verbose=False)</span>
+<span class="sd">            &gt;&gt;&gt; strategy.trades_to_json()</span>
+<span class="sd">            '[{"asset": ["AAPL"], "lot": [1.0], "close": 1}]'</span>
+
+<span class="sd">            &gt;&gt;&gt; s = '[{"asset": ["AAPL"], "lot": [1.0], "close": 1}]'</span>
+<span class="sd">            &gt;&gt;&gt; strategy = Strategy()</span>
+<span class="sd">            &gt;&gt;&gt; strategy.universe = pd.DataFrame({"AAPL": [100, 101]})</span>
+<span class="sd">            &gt;&gt;&gt; strategy.load_trades_json(s).trades</span>
+<span class="sd">            [trade(['AAPL'], lot=[1.])]</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="n">to_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trades_to_dict</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Strategy.load"><a class="viewcode-back" href="../../../strategy.html#epymetheus.Strategy.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">history</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">universe</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="sd">"""Load trade history and universe.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            history (pandas.DataFrame): History to load.</span>
+<span class="sd">            universe (pandas.DataFrame): Universe to load.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            self</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_universe</span><span class="p">(</span><span class="n">universe</span><span class="p">)</span><span class="o">.</span><span class="n">load_history</span><span class="p">(</span><span class="n">history</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">load_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">history</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trades</span> <span class="o">=</span> <span class="n">Trade</span><span class="o">.</span><span class="n">load_history</span><span class="p">(</span><span class="n">history</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">trade</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="p">:</span>
+            <span class="c1"># Assuming that self has loaded universe</span>
+            <span class="n">trade</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">universe</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+<div class="viewcode-block" id="Strategy.load_trades_dict"><a class="viewcode-back" href="../../../strategy.html#epymetheus.Strategy.load_trades_dict">[docs]</a>    <span class="k">def</span> <span class="nf">load_trades_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"Strategy"</span><span class="p">:</span>
+        <span class="sd">"""</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            l (list[dict]):</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trades</span> <span class="o">=</span> <span class="p">[</span><span class="n">Trade</span><span class="o">.</span><span class="n">load_dict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">l</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">trade</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="p">:</span>
+            <span class="c1"># Assuming that self has loaded universe</span>
+            <span class="n">trade</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">universe</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="Strategy.load_trades_json"><a class="viewcode-back" href="../../../strategy.html#epymetheus.Strategy.load_trades_json">[docs]</a>    <span class="k">def</span> <span class="nf">load_trades_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"Strategy"</span><span class="p">:</span>
+        <span class="sd">"""</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            s (str):</span>
+<span class="sd">        """</span>
+        <span class="c1"># try:</span>
+        <span class="n">trades_as_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="c1"># except json.JSONDecodeError:</span>
+        <span class="c1">#     # If s cannot be interpreted as a json string,</span>
+        <span class="c1">#     # try to interpret it as a file name of json</span>
+        <span class="c1">#     trades_as_dict = json.load(s)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_trades_dict</span><span class="p">(</span><span class="n">trades_as_dict</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">trade</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="p">:</span>
+            <span class="c1"># Assuming that self has loaded universe</span>
+            <span class="n">trade</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">universe</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="Strategy.load_universe"><a class="viewcode-back" href="../../../strategy.html#epymetheus.Strategy.load_universe">[docs]</a>    <span class="k">def</span> <span class="nf">load_universe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">universe</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="sd">"""Load universe.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            universe (pandas.DataFrame): Universe to load.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            self</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">universe</span> <span class="o">=</span> <span class="n">universe</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="Strategy.wealth"><a class="viewcode-back" href="../../../strategy.html#epymetheus.Strategy.wealth">[docs]</a>    <span class="k">def</span> <span class="nf">wealth</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+        <span class="sd">"""Return `pandas.Series` of wealth.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pandas.Series</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"trades"</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">NotRunError</span><span class="p">(</span><span class="s2">"Strategy has not been run"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+            <span class="n">ts</span><span class="o">.</span><span class="n">wealth</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">universe</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">universe</span><span class="o">.</span><span class="n">index</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Strategy.drawdown"><a class="viewcode-back" href="../../../strategy.html#epymetheus.Strategy.drawdown">[docs]</a>    <span class="k">def</span> <span class="nf">drawdown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+        <span class="sd">"""</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pandas.Series</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"trades"</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">NotRunError</span><span class="p">(</span><span class="s2">"Strategy has not been run"</span><span class="p">)</span>
+
+        <span class="n">drawdown</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">drawdown</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">universe</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">drawdown</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">universe</span><span class="o">.</span><span class="n">index</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">net_exposure</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"trades"</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">NotRunError</span><span class="p">(</span><span class="s2">"Strategy has not been run"</span><span class="p">)</span>
+
+        <span class="n">exposure</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">net_exposure</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">universe</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">exposure</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">universe</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">abs_exposure</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"trades"</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">NotRunError</span><span class="p">(</span><span class="s2">"Strategy has not been run"</span><span class="p">)</span>
+
+        <span class="n">exposure</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">abs_exposure</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">universe</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">exposure</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">universe</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Strategy.get_params"><a class="viewcode-back" href="../../../strategy.html#epymetheus.Strategy.get_params">[docs]</a>    <span class="k">def</span> <span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">"""Set the parameters of this strategy.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict[str, *]</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"_params"</span><span class="p">,</span> <span class="p">{})</span></div>
+
+<div class="viewcode-block" id="Strategy.set_params"><a class="viewcode-back" href="../../../strategy.html#epymetheus.Strategy.set_params">[docs]</a>    <span class="k">def</span> <span class="nf">set_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="sd">"""Set the parameters of this strategy.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            **params (dict): Strategy parameters.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            self</span>
+<span class="sd">        """</span>
+        <span class="n">valid_keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_params</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_keys</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Invalid parameter: </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        &gt;&gt;&gt; def my_func(universe, param_1, param_2):</span>
+<span class="sd">        ...     return ...</span>
+
+<span class="sd">        &gt;&gt;&gt; strategy = create_strategy(my_func, param_1=1.0, param_2=2.0)</span>
+<span class="sd">        &gt;&gt;&gt; repr(strategy)</span>
+<span class="sd">        'strategy(my_func, param_1=1.0, param_2=2.0)'</span>
+
+<span class="sd">        &gt;&gt;&gt; class MyStrategy(Strategy):</span>
+<span class="sd">        ...     pass</span>
+
+<span class="sd">        &gt;&gt;&gt; strategy = MyStrategy()</span>
+<span class="sd">        &gt;&gt;&gt; repr(strategy)</span>
+<span class="sd">        'MyStrategy'</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"_f"</span><span class="p">):</span>
+            <span class="n">fname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_f</span><span class="o">.</span><span class="vm">__name__</span>
+            <span class="n">param</span> <span class="o">=</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_params</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+            <span class="n">param</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">", </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">param</span> <span class="o">!=</span> <span class="s2">""</span> <span class="k">else</span> <span class="s2">""</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">"strategy(</span><span class="si">{</span><span class="n">fname</span><span class="si">}{</span><span class="n">param</span><span class="si">}</span><span class="s2">)"</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span></div>
+</pre></div>
+      </article>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2021, Shota Imaki
+            |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </main>
+</div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/main.js"></script>
+    </body>
+</html>
