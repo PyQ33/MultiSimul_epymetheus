@@ -141,18 +141,24 @@
 
 
 <div class="viewcode-block" id="trade"><a class="viewcode-back" href="../../trade.html#epymetheus.trade">[docs]</a><span class="k">def</span> <span class="nf">trade</span><span class="p">(</span><span class="n">asset</span><span class="p">,</span> <span class="n">entry</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">take</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lot</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">"""Create `Trade`.</span>
+    <span class="sd">"""Create a :class:`Trade`.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        asset (str or array of str): Name of assets.</span>
-<span class="sd">        entry (object, optional): Datetime of entry.</span>
-<span class="sd">        exit (object, optional): Datetime of exit.</span>
+<span class="sd">        asset (str or array-like): Name of assets to trade.</span>
+<span class="sd">            If an array-like (e.g. `list` or `numpy.ndarray`) of objects is given,</span>
+<span class="sd">            a trade transacts multiple assets at once.</span>
+<span class="sd">        entry (object, optional): Timestamp to open a trade.</span>
+<span class="sd">            If not provided, the first timestamp in a given `universe`.</span>
+<span class="sd">        exit (object, optional): Timestamp to exit a trade.</span>
+<span class="sd">            If not provided, the last timestamp in a given `universe`.</span>
 <span class="sd">        take (float &gt; 0, optional): Threshold of profit-take.</span>
 <span class="sd">        stop (float &lt; 0, optional): Threshold of stop-loss.</span>
-<span class="sd">        lot (float or np.array, default 1.0): Lot to trade in unit of share.</span>
+<span class="sd">        lot (float or array-like, default 1.0): The amount of trade.</span>
+<span class="sd">            If an array-like (e.g. `list` or `numpy.ndarray`) of objects is given,</span>
+<span class="sd">            each element in an array represents the amount of each asset.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        epymetheus.Trade</span>
+<span class="sd">        :class:`Trade`</span>
 
 <span class="sd">    Examples:</span>
 
@@ -194,12 +200,18 @@
     <span class="sd">"""A `epymetheus.Trade` represents a single trade.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        asset (np.ndarray): Name of assets.</span>
-<span class="sd">        entry (object, optional): Datetime of entry.</span>
-<span class="sd">        exit (object, optional): Datetime of exit.</span>
-<span class="sd">        take (float, optional): Threshold of profit-take.</span>
-<span class="sd">        stop (float, optional): Threshold of stop-loss.</span>
-<span class="sd">        lot (float or np.ndarray, default 1.0): Lot to trade in unit of share.</span>
+<span class="sd">        asset (str or array-like): Name of assets to trade.</span>
+<span class="sd">            If an array-like (e.g. `list` or `numpy.ndarray`) of objects is given,</span>
+<span class="sd">            a trade transacts multiple assets at once.</span>
+<span class="sd">        entry (object, optional): Timestamp to open a trade.</span>
+<span class="sd">            If not provided, the first timestamp in a given `universe`.</span>
+<span class="sd">        exit (object, optional): Timestamp to exit a trade.</span>
+<span class="sd">            If not provided, the last timestamp in a given `universe`.</span>
+<span class="sd">        take (float &gt; 0, optional): Threshold of profit-take.</span>
+<span class="sd">        stop (float &lt; 0, optional): Threshold of stop-loss.</span>
+<span class="sd">        lot (float or array-like, default 1.0): The amount of trade.</span>
+<span class="sd">            If an array-like (e.g. `list` or `numpy.ndarray`) of objects is given,</span>
+<span class="sd">            each element in an array represents the amount of each asset.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        close (object): Datetime to close the trade.</span>
@@ -539,7 +551,7 @@
     <span class="n">check_lot</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">check_take</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">check_stop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-<span class="p">):</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">"""Validation for `Trade`.</span>
 
 <span class="sd">    Args:</span>
@@ -550,6 +562,9 @@
 <span class="sd">        check_lot (bool, default=True):</span>
 <span class="sd">        check_take (bool, default=True):</span>
 <span class="sd">        check_stop (bool, default=True):</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        ValueError: If something is wrong</span>

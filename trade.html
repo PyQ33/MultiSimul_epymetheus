@@ -136,20 +136,26 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="epymetheus.trade">
 <span class="sig-prename descclassname"><span class="pre">epymetheus.</span></span><span class="sig-name descname"><span class="pre">trade</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">asset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">take</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/trade.html#trade"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.trade" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create <cite>Trade</cite>.</p>
+<dd><p>Create a <a class="reference internal" href="#epymetheus.Trade" title="epymetheus.Trade"><code class="xref py py-class docutils literal notranslate"><span class="pre">Trade</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>asset</strong> (<em>str</em><em> or </em><em>array of str</em>) – Name of assets.</p></li>
-<li><p><strong>entry</strong> (<em>object</em><em>, </em><em>optional</em>) – Datetime of entry.</p></li>
-<li><p><strong>exit</strong> (<em>object</em><em>, </em><em>optional</em>) – Datetime of exit.</p></li>
+<li><p><strong>asset</strong> (<em>str</em><em> or </em><em>array-like</em>) – Name of assets to trade.
+If an array-like (e.g. <cite>list</cite> or <cite>numpy.ndarray</cite>) of objects is given,
+a trade transacts multiple assets at once.</p></li>
+<li><p><strong>entry</strong> (<em>object</em><em>, </em><em>optional</em>) – Timestamp to open a trade.
+If not provided, the first timestamp in a given <cite>universe</cite>.</p></li>
+<li><p><strong>exit</strong> (<em>object</em><em>, </em><em>optional</em>) – Timestamp to exit a trade.
+If not provided, the last timestamp in a given <cite>universe</cite>.</p></li>
 <li><p><strong>take</strong> (<em>float &gt; 0</em><em>, </em><em>optional</em>) – Threshold of profit-take.</p></li>
 <li><p><strong>stop</strong> (<em>float &lt; 0</em><em>, </em><em>optional</em>) – Threshold of stop-loss.</p></li>
-<li><p><strong>lot</strong> (<em>float</em><em> or </em><em>np.array</em><em>, </em><em>default 1.0</em>) – Lot to trade in unit of share.</p></li>
+<li><p><strong>lot</strong> (<em>float</em><em> or </em><em>array-like</em><em>, </em><em>default 1.0</em>) – The amount of trade.
+If an array-like (e.g. <cite>list</cite> or <cite>numpy.ndarray</cite>) of objects is given,
+each element in an array represents the amount of each asset.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>epymetheus.Trade</p>
+<dd class="field-even"><p><a class="reference internal" href="#epymetheus.Trade" title="epymetheus.Trade"><code class="xref py py-class docutils literal notranslate"><span class="pre">Trade</span></code></a></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -192,12 +198,18 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>asset</strong> (<em>np.ndarray</em>) – Name of assets.</p></li>
-<li><p><strong>entry</strong> (<em>object</em><em>, </em><em>optional</em>) – Datetime of entry.</p></li>
-<li><p><strong>exit</strong> (<em>object</em><em>, </em><em>optional</em>) – Datetime of exit.</p></li>
-<li><p><strong>take</strong> (<em>float</em><em>, </em><em>optional</em>) – Threshold of profit-take.</p></li>
-<li><p><strong>stop</strong> (<em>float</em><em>, </em><em>optional</em>) – Threshold of stop-loss.</p></li>
-<li><p><strong>lot</strong> (<em>float</em><em> or </em><em>np.ndarray</em><em>, </em><em>default 1.0</em>) – Lot to trade in unit of share.</p></li>
+<li><p><strong>asset</strong> (<em>str</em><em> or </em><em>array-like</em>) – Name of assets to trade.
+If an array-like (e.g. <cite>list</cite> or <cite>numpy.ndarray</cite>) of objects is given,
+a trade transacts multiple assets at once.</p></li>
+<li><p><strong>entry</strong> (<em>object</em><em>, </em><em>optional</em>) – Timestamp to open a trade.
+If not provided, the first timestamp in a given <cite>universe</cite>.</p></li>
+<li><p><strong>exit</strong> (<em>object</em><em>, </em><em>optional</em>) – Timestamp to exit a trade.
+If not provided, the last timestamp in a given <cite>universe</cite>.</p></li>
+<li><p><strong>take</strong> (<em>float &gt; 0</em><em>, </em><em>optional</em>) – Threshold of profit-take.</p></li>
+<li><p><strong>stop</strong> (<em>float &lt; 0</em><em>, </em><em>optional</em>) – Threshold of stop-loss.</p></li>
+<li><p><strong>lot</strong> (<em>float</em><em> or </em><em>array-like</em><em>, </em><em>default 1.0</em>) – The amount of trade.
+If an array-like (e.g. <cite>list</cite> or <cite>numpy.ndarray</cite>) of objects is given,
+each element in an array represents the amount of each asset.</p></li>
 </ul>
 </dd>
 </dl>
@@ -406,8 +418,11 @@ shape (n_bars, n_orders)</p>
 <li><p><strong>check_stop</strong> (<em>bool</em><em>, </em><em>default=True</em>) – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><strong>ValueError</strong> – If something is wrong</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If something is wrong</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>

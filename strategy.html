@@ -137,23 +137,39 @@
 <dt class="sig sig-object py" id="epymetheus.create_strategy">
 <span class="sig-prename descclassname"><span class="pre">epymetheus.</span></span><span class="sig-name descname"><span class="pre">create_strategy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#create_strategy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.create_strategy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a <a class="reference internal" href="#epymetheus.Strategy" title="epymetheus.Strategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">Strategy</span></code></a> from a function.</p>
+<p>A function <cite>fn</cite> takes more than one parameters.
+The first parameter should be <cite>universe</cite>, which is a <cite>pandas.DataFrame</cite>
+of historical prices. That is, its indices represents timestamp, columns
+stands for the names of assets, and each element in the frame stores a price.
+The following parameters are user-defined ones parameterizing the strategy.
+These parameters should be useful when one want to try various configurations
+such as trade volume, profit-taking threshold, loss-cut threshold, and so forth.
+The function <cite>fn</cite> is supposed to yield arbitrary numbers of <a class="reference internal" href="trade.html#epymetheus.Trade" title="epymetheus.Trade"><code class="xref py py-class docutils literal notranslate"><span class="pre">Trade</span></code></a>
+depending on the <cite>universe</cite> and other parameters. These trades will be executed
+for the <cite>universe</cite> and evaluated accordingly.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fn</strong> (<em>callable</em>) – Function that returns iterable of <a class="reference internal" href="trade.html#epymetheus.Trade" title="epymetheus.Trade"><code class="xref py py-class docutils literal notranslate"><span class="pre">Trade</span></code></a>
-from universe and parameters.</p></li>
-<li><p><strong>**params</strong> – Parameter values.</p></li>
+<li><p><strong>fn</strong> (<em>callable</em>) – A function that returns iterable of <a class="reference internal" href="trade.html#epymetheus.Trade" title="epymetheus.Trade"><code class="xref py py-class docutils literal notranslate"><span class="pre">Trade</span></code></a>
+from a <cite>universe</cite> and parameters.</p></li>
+<li><p><strong>**params</strong> – names and values of the parameters.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference internal" href="#epymetheus.Strategy" title="epymetheus.Strategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">Strategy</span></code></a></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
+<p>The following strategy trades the first asset in a given <cite>universe</cite>.
+The parameter <cite>my_param</cite> controls the volume to trade.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">epymetheus</span> <span class="k">as</span> <span class="nn">ep</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="n">universe</span><span class="p">,</span> <span class="n">my_param</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="k">yield</span> <span class="n">my_param</span> <span class="o">*</span> <span class="n">ep</span><span class="o">.</span><span class="n">trade</span><span class="p">(</span><span class="s2">"AAPL"</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">asset</span> <span class="o">=</span> <span class="n">universe</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="k">yield</span> <span class="n">my_param</span> <span class="o">*</span> <span class="n">ep</span><span class="o">.</span><span class="n">trade</span><span class="p">(</span><span class="n">asset</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">strategy</span> <span class="o">=</span> <span class="n">ep</span><span class="o">.</span><span class="n">create_strategy</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">my_param</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">universe</span> <span class="o">=</span> <span class="o">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">universe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"AAPL"</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">101</span><span class="p">],</span> <span class="s2">"AMZN"</span><span class="p">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">201</span><span class="p">]})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">strategy</span><span class="p">(</span><span class="n">universe</span><span class="p">)</span>
 <span class="go">[trade(['AAPL'], lot=[2.])]</span>
 </pre></div>
@@ -163,22 +179,45 @@ from universe and parameters.</p></li>
 <dt class="sig sig-object py" id="epymetheus.Strategy">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">epymetheus.</span></span><span class="sig-name descname"><span class="pre">Strategy</span></span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class of trading strategy.</p>
+<p>There are two ways to create a <a class="reference internal" href="#epymetheus.Strategy" title="epymetheus.Strategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">Strategy</span></code></a>:</p>
+<ul class="simple">
+<li><p>Use <a class="reference internal" href="#epymetheus.create_strategy" title="epymetheus.create_strategy"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_strategy()</span></code></a>: This should be easier for simple strategies.
+See <a class="reference internal" href="#epymetheus.create_strategy" title="epymetheus.create_strategy"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_strategy()</span></code></a>.</p></li>
+<li><p>Subclass <a class="reference internal" href="#epymetheus.Strategy" title="epymetheus.Strategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">Strategy</span></code></a>: See below.</p></li>
+</ul>
+<p>One can create a strategy by subclassing <a class="reference internal" href="#epymetheus.Strategy" title="epymetheus.Strategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">Strategy</span></code></a> and
+overriding a method <cite>logic</cite>.
+The method <cite>logic</cite> takes arbitrary numbers of user-defined parameters
+parameterizing the strategy.
+These parameters should be useful when one want to try various configurations
+such as trade volume, profit-taking threshold, loss-cut threshold, and so forth.
+The method <cite>logic</cite> is supposed to yield arbitrary numbers of <a class="reference internal" href="trade.html#epymetheus.Trade" title="epymetheus.Trade"><code class="xref py py-class docutils literal notranslate"><span class="pre">Trade</span></code></a>
+depending on the <cite>universe</cite> and other parameters. These trades will be executed
+for the <cite>universe</cite> and evaluated accordingly.</p>
 <p class="rubric">Examples</p>
-<p>Initialize by subclassing</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">epymetheus</span> <span class="k">as</span> <span class="nn">ep</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">epymetheus</span> <span class="kn">import</span> <span class="n">Strategy</span>
+<p>The following strategy trades the first asset in a given <cite>universe</cite>.
+The parameter <cite>my_param</cite> controls the volume to trade.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">epymetheus</span> <span class="k">as</span> <span class="nn">ep</span>
 <span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">MyStrategy</span><span class="p">(</span><span class="n">Strategy</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
-<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">param</span> <span class="o">=</span> <span class="n">param</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">MyStrategy</span><span class="p">(</span><span class="n">ep</span><span class="o">.</span><span class="n">Strategy</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">my_param</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">my_param</span> <span class="o">=</span> <span class="n">my_param</span>
 <span class="gp">...</span>
-<span class="gp">... </span>    <span class="k">def</span> <span class="nf">logic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">universe</span><span class="p">):</span>
-<span class="gp">... </span>        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span> <span class="o">*</span> <span class="n">ep</span><span class="o">.</span><span class="n">trade</span><span class="p">(</span><span class="s2">"A"</span><span class="p">)]</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">logic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">universe</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="n">asset</span> <span class="o">=</span> <span class="n">universe</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">... </span>        <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">my_param</span> <span class="o">*</span> <span class="n">ep</span><span class="o">.</span><span class="n">trade</span><span class="p">(</span><span class="n">asset</span><span class="p">)</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">strategy</span> <span class="o">=</span> <span class="n">MyStrategy</span><span class="p">(</span><span class="n">param</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">universe</span> <span class="o">=</span> <span class="o">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">strategy</span> <span class="o">=</span> <span class="n">MyStrategy</span><span class="p">(</span><span class="n">my_param</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">universe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"AAPL"</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">101</span><span class="p">],</span> <span class="s2">"AMZN"</span><span class="p">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">201</span><span class="p">]})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">strategy</span><span class="p">(</span><span class="n">universe</span><span class="p">)</span>
-<span class="go">[trade(['A'], lot=[2.])]</span>
+<span class="go">[trade(['AAPL'], lot=[2.])]</span>
+</pre></div>
+</div>
+<p>The method <a class="reference internal" href="#epymetheus.Strategy.run" title="epymetheus.Strategy.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> runs the strategy on a given universe.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">strategy</span> <span class="o">=</span> <span class="n">MyStrategy</span><span class="p">(</span><span class="n">my_param</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">universe</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">strategy</span><span class="o">.</span><span class="n">trades</span>
+<span class="go">[trade(['AAPL'], lot=[2.])]</span>
 </pre></div>
 </div>
 <dl class="py method">
