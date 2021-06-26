@@ -139,65 +139,47 @@
 <div class="viewcode-block" id="make_randomwalk"><a class="viewcode-back" href="../../../datasets.html#epymetheus.datasets.make_randomwalk">[docs]</a><span class="k">def</span> <span class="nf">make_randomwalk</span><span class="p">(</span>
     <span class="n">n_steps</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
     <span class="n">n_assets</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-    <span class="n">volatility</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
-    <span class="n">init_value</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-    <span class="n">dt</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">volatility</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+    <span class="n">dt</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">250</span><span class="p">,</span>
     <span class="n">drift</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
-    <span class="n">bars</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">assets</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-    <span class="sd">"""</span>
-<span class="sd">    Return `pandas.DataFrame` of random-walking prices (geometric Brownian motion).</span>
-<span class="sd">    Daily returns follow log-normal distribution.</span>
-<span class="sd">    Seed can be set by `np.random.seed(...)`.</span>
+    <span class="sd">"""Return `pandas.DataFrame` of random-walking prices (geometric Brownian motion).</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    n_steps : int, default 1000</span>
-<span class="sd">        Number of time steps.</span>
-<span class="sd">    n_assets : int, default 10</span>
-<span class="sd">        Number of assets.</span>
-<span class="sd">    volatility : float, default 0.01</span>
-<span class="sd">        Volatility of asset prices.</span>
-<span class="sd">    bars : list[str], optional</span>
-<span class="sd">        Names of time steps.</span>
-<span class="sd">    assets : list[str], optional</span>
-<span class="sd">        Names of assets.</span>
-<span class="sd">    seed : int</span>
-<span class="sd">        Random seed to generate Brownian motion.</span>
+<span class="sd">    Random seed can be set by `np.random.seed`.</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    universe : pandas.DataFrame</span>
-<span class="sd">        DataFrame with of asset prices that follow Brownian motions.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        n_steps (int, default 1000): Number of time steps.</span>
+<span class="sd">        n_assets (int, default 10): Number of assets.</span>
+<span class="sd">        volatility (float, default=0.2):</span>
+<span class="sd">        dt (float, default=1/250)</span>
+<span class="sd">        drift (float, default=0.0):</span>
+<span class="sd">        index (pandas.Index or array-like, optional): Index to use</span>
+<span class="sd">            for resulting frame.</span>
+<span class="sd">            Will default to `RangeIndex` if no index labels are provided.</span>
+<span class="sd">        columns (pandas.Index or array-like, optional): Column labels to use</span>
+<span class="sd">            for resulting frame.</span>
+<span class="sd">            Will default to `RangeIndex` if no column labels are provided.</span>
 
-<span class="sd">    Examples</span>
-<span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
-<span class="sd">    &gt;&gt;&gt; np.random.seed(42)</span>
-<span class="sd">    &gt;&gt;&gt; make_randomwalk(10, 3)</span>
-<span class="sd">              0         1         2</span>
-<span class="sd">    0  1.000000  1.000000  1.000000</span>
-<span class="sd">    1  1.004929  0.998568  1.006448</span>
-<span class="sd">    2  1.020301  0.996183  1.004044</span>
-<span class="sd">    3  1.036490  1.003807  0.999291</span>
-<span class="sd">    4  1.042076  0.999116  0.994598</span>
-<span class="sd">    5  1.044549  0.980133  0.977540</span>
-<span class="sd">    6  1.038640  0.970208  0.980568</span>
-<span class="sd">    7  1.029200  0.956554  0.994996</span>
-<span class="sd">    8  1.026827  0.957152  0.980871</span>
-<span class="sd">    9  1.021202  0.958167  0.969598</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        pandas.DataFrame</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">        &gt;&gt;&gt; np.random.seed(42)</span>
+<span class="sd">        &gt;&gt;&gt; make_randomwalk(5, 2, columns=("A", "B"))</span>
+<span class="sd">                  A         B</span>
+<span class="sd">        0  1.000000  1.000000</span>
+<span class="sd">        1  0.988262  0.999265</span>
+<span class="sd">        2  0.965828  0.976582</span>
+<span class="sd">        3  0.965805  0.966582</span>
+<span class="sd">        4  0.941075  0.953967</span>
 <span class="sd">    """</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">generate_geometric_brownian</span><span class="p">(</span>
-        <span class="n">n_steps</span><span class="o">=</span><span class="n">n_steps</span><span class="p">,</span>
-        <span class="n">n_paths</span><span class="o">=</span><span class="n">n_assets</span><span class="p">,</span>
-        <span class="n">volatility</span><span class="o">=</span><span class="n">volatility</span><span class="p">,</span>
-        <span class="n">init_value</span><span class="o">=</span><span class="n">init_value</span><span class="p">,</span>
-        <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span>
-        <span class="n">drift</span><span class="o">=</span><span class="n">drift</span><span class="p">,</span>
+        <span class="n">n_steps</span><span class="o">=</span><span class="n">n_steps</span><span class="p">,</span> <span class="n">n_paths</span><span class="o">=</span><span class="n">n_assets</span><span class="p">,</span> <span class="n">volatility</span><span class="o">=</span><span class="n">volatility</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span> <span class="n">drift</span><span class="o">=</span><span class="n">drift</span>
     <span class="p">)</span>
-    <span class="n">index</span> <span class="o">=</span> <span class="n">bars</span> <span class="ow">or</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_steps</span><span class="p">))</span>
-    <span class="n">columns</span> <span class="o">=</span> <span class="n">assets</span> <span class="ow">or</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_assets</span><span class="p">)]</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span></div>
 </pre></div>
       </article>

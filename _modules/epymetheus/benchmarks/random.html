@@ -151,8 +151,7 @@
 
 
 <div class="viewcode-block" id="RandomStrategy"><a class="viewcode-back" href="../../../benchmarks.html#epymetheus.benchmarks.RandomStrategy">[docs]</a><span class="k">class</span> <span class="nc">RandomStrategy</span><span class="p">(</span><span class="n">Strategy</span><span class="p">):</span>
-    <span class="sd">"""</span>
-<span class="sd">    Randomly yield trades.</span>
+    <span class="sd">"""Randomly yield trades.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -165,14 +164,15 @@
 <span class="sd">    min_lot : 1</span>
 <span class="sd">        Minimum value of lots.</span>
 
-<span class="sd">    Examples</span>
-<span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; np.random.seed(42)</span>
-<span class="sd">    &gt;&gt;&gt; from epymetheus.datasets import make_randomwalk</span>
-<span class="sd">    &gt;&gt;&gt; strategy = RandomStrategy(n_trades=2)</span>
-<span class="sd">    &gt;&gt;&gt; universe = make_randomwalk(10, 3)</span>
-<span class="sd">    &gt;&gt;&gt; strategy(universe)</span>
-<span class="sd">    [trade(['2'], lot=[1.], entry=1, exit=8), trade(['1'], lot=[1.], entry=1, exit=4)]</span>
+<span class="sd">    Examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; from epymetheus.datasets import make_randomwalk</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; np.random.seed(42)</span>
+<span class="sd">        &gt;&gt;&gt; strategy = RandomStrategy(n_trades=2)</span>
+<span class="sd">        &gt;&gt;&gt; universe = make_randomwalk(10, 3)</span>
+<span class="sd">        &gt;&gt;&gt; strategy(universe)</span>
+<span class="sd">        [trade([2], lot=[1.], entry=2, exit=7), trade([1], lot=[1.], entry=1, exit=7)]</span>
 <span class="sd">    """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_trades</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_n_assets</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_lot</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">min_lot</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>

@@ -137,43 +137,39 @@
 <h2>Random Walk<a class="headerlink" href="#random-walk" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="epymetheus.datasets.make_randomwalk">
-<span class="sig-prename descclassname"><span class="pre">epymetheus.datasets.</span></span><span class="sig-name descname"><span class="pre">make_randomwalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_assets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">volatility</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/datasets/randomwalk.html#make_randomwalk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.datasets.make_randomwalk" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return <cite>pandas.DataFrame</cite> of random-walking prices (geometric Brownian motion).
-Daily returns follow log-normal distribution.
-Seed can be set by <cite>np.random.seed(…)</cite>.</p>
+<span class="sig-prename descclassname"><span class="pre">epymetheus.datasets.</span></span><span class="sig-name descname"><span class="pre">make_randomwalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_assets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">volatility</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.004</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/datasets/randomwalk.html#make_randomwalk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.datasets.make_randomwalk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <cite>pandas.DataFrame</cite> of random-walking prices (geometric Brownian motion).</p>
+<p>Random seed can be set by <cite>np.random.seed</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>n_steps</strong> (<em>int</em><em>, </em><em>default 1000</em>) – Number of time steps.</p></li>
 <li><p><strong>n_assets</strong> (<em>int</em><em>, </em><em>default 10</em>) – Number of assets.</p></li>
-<li><p><strong>volatility</strong> (<em>float</em><em>, </em><em>default 0.01</em>) – Volatility of asset prices.</p></li>
-<li><p><strong>bars</strong> (<em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Names of time steps.</p></li>
-<li><p><strong>assets</strong> (<em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Names of assets.</p></li>
-<li><p><strong>seed</strong> (<em>int</em>) – Random seed to generate Brownian motion.</p></li>
+<li><p><strong>volatility</strong> (<em>float</em><em>, </em><em>default=0.2</em>) – </p></li>
+<li><p><strong>dt</strong> (<em>float</em><em>, </em><em>default=1/250</em>) – </p></li>
+<li><p><strong>drift</strong> (<em>float</em><em>, </em><em>default=0.0</em>) – </p></li>
+<li><p><strong>index</strong> (<em>pandas.Index</em><em> or </em><em>array-like</em><em>, </em><em>optional</em>) – Index to use
+for resulting frame.
+Will default to <cite>RangeIndex</cite> if no index labels are provided.</p></li>
+<li><p><strong>columns</strong> (<em>pandas.Index</em><em> or </em><em>array-like</em><em>, </em><em>optional</em>) – Column labels to use
+for resulting frame.
+Will default to <cite>RangeIndex</cite> if no column labels are provided.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>universe</strong> – DataFrame with of asset prices that follow Brownian motions.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>pandas.DataFrame</p>
+<dd class="field-even"><p>pandas.DataFrame</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">make_randomwalk</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="go">          0         1         2</span>
-<span class="go">0  1.000000  1.000000  1.000000</span>
-<span class="go">1  1.004929  0.998568  1.006448</span>
-<span class="go">2  1.020301  0.996183  1.004044</span>
-<span class="go">3  1.036490  1.003807  0.999291</span>
-<span class="go">4  1.042076  0.999116  0.994598</span>
-<span class="go">5  1.044549  0.980133  0.977540</span>
-<span class="go">6  1.038640  0.970208  0.980568</span>
-<span class="go">7  1.029200  0.956554  0.994996</span>
-<span class="go">8  1.026827  0.957152  0.980871</span>
-<span class="go">9  1.021202  0.958167  0.969598</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">make_randomwalk</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">(</span><span class="s2">"A"</span><span class="p">,</span> <span class="s2">"B"</span><span class="p">))</span>
+<span class="go">          A         B</span>
+<span class="go">0  1.000000  1.000000</span>
+<span class="go">1  0.988262  0.999265</span>
+<span class="go">2  0.965828  0.976582</span>
+<span class="go">3  0.965805  0.966582</span>
+<span class="go">4  0.941075  0.953967</span>
 </pre></div>
 </div>
 </dd></dl>

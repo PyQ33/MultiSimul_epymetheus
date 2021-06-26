@@ -138,8 +138,7 @@
 
 
 <div class="viewcode-block" id="BuyAndHold"><a class="viewcode-back" href="../../../benchmarks.html#epymetheus.benchmarks.BuyAndHold">[docs]</a><span class="k">class</span> <span class="nc">BuyAndHold</span><span class="p">(</span><span class="n">Strategy</span><span class="p">):</span>
-    <span class="sd">"""</span>
-<span class="sd">    Buy-and-Hold Strategy.</span>
+    <span class="sd">"""Buy-and-Hold Strategy.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -147,13 +146,13 @@
 <span class="sd">        Keys are assets to trade.</span>
 <span class="sd">        Values are value-based weights.</span>
 
-<span class="sd">    Examples</span>
-<span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; from epymetheus.datasets import make_randomwalk</span>
-<span class="sd">    &gt;&gt;&gt; strategy = BuyAndHold({"0": 0.3, "1": 0.7})</span>
-<span class="sd">    &gt;&gt;&gt; universe = make_randomwalk(5, 3)</span>
-<span class="sd">    &gt;&gt;&gt; strategy(universe)</span>
-<span class="sd">    [trade(['0' '1'], lot=[0.3 0.7], entry=0)]</span>
+<span class="sd">    Examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; from epymetheus.datasets import make_randomwalk</span>
+<span class="sd">        &gt;&gt;&gt; strategy = BuyAndHold({"A": 0.3, "B": 0.7})</span>
+<span class="sd">        &gt;&gt;&gt; universe = make_randomwalk(5, 2, columns=("A", "B"))</span>
+<span class="sd">        &gt;&gt;&gt; strategy(universe)</span>
+<span class="sd">        [trade(['A' 'B'], lot=[0.3 0.7], entry=0)]</span>
 <span class="sd">    """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weight</span><span class="p">):</span>
