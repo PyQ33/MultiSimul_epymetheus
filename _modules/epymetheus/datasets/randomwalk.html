@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.0.2, furo 2021.06.24.beta37"/>
+    <meta name="generator" content="sphinx-4.1.1, furo 2021.07.05.beta38"/>
         <title>epymetheus.datasets.randomwalk - Epymetheus documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css" />
@@ -113,7 +113,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../datasets.html">epymetheus.datasets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../benchmarks.html">epymetheus.benchmarks</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/epymetheus/epymetheus">GitHub</a></li>
 </ul>
@@ -137,11 +137,11 @@
 
 
 <div class="viewcode-block" id="make_randomwalk"><a class="viewcode-back" href="../../../datasets.html#epymetheus.datasets.make_randomwalk">[docs]</a><span class="k">def</span> <span class="nf">make_randomwalk</span><span class="p">(</span>
-    <span class="n">n_steps</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-    <span class="n">n_assets</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-    <span class="n">volatility</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-    <span class="n">dt</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">250</span><span class="p">,</span>
-    <span class="n">drift</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">n_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="n">n_assets</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="n">volatility</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>
+    <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">250</span><span class="p">,</span>
+    <span class="n">drift</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
     <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
@@ -152,9 +152,9 @@
 <span class="sd">    Args:</span>
 <span class="sd">        n_steps (int, default 1000): Number of time steps.</span>
 <span class="sd">        n_assets (int, default 10): Number of assets.</span>
-<span class="sd">        volatility (float, default=0.2):</span>
-<span class="sd">        dt (float, default=1/250)</span>
-<span class="sd">        drift (float, default=0.0):</span>
+<span class="sd">        volatility (float, default=0.2): Volatility of the motion.</span>
+<span class="sd">        dt (float, default=1/250): Intervals of time steps.</span>
+<span class="sd">        drift (float, default=0.0): Drift of the motion.</span>
 <span class="sd">        index (pandas.Index or array-like, optional): Index to use</span>
 <span class="sd">            for resulting frame.</span>
 <span class="sd">            Will default to `RangeIndex` if no index labels are provided.</span>
