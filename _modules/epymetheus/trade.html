@@ -133,6 +133,7 @@
         <h1>Source code for epymetheus.trade</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -360,6 +361,39 @@
 
         <span class="k">return</span> <span class="n">final_pnl</span></div>
 
+<div class="viewcode-block" id="Trade.dict_exposure"><a class="viewcode-back" href="../../trade.html#epymetheus.Trade.dict_exposure">[docs]</a>    <span class="k">def</span> <span class="nf">dict_exposure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">universe</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="sd">"""Return</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            universe (pandas.DataFrame): DataFrame of prices.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pandas.DataFrame: DataFrame of exposure.</span>
+
+<span class="sd">        Examples:</span>
+
+<span class="sd">            &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">            &gt;&gt;&gt; import epymetheus as ep</span>
+<span class="sd">            ...</span>
+<span class="sd">            &gt;&gt;&gt; universe = pd.DataFrame({</span>
+<span class="sd">            ...     "A0": [1, 2, 3, 4, 5],</span>
+<span class="sd">            ...     "A1": [2, 3, 4, 5, 6],</span>
+<span class="sd">            ...     "A2": [3, 4, 5, 6, 7],</span>
+<span class="sd">            ... })</span>
+<span class="sd">            &gt;&gt;&gt; t = [1, -1] * ep.trade(["A0", "A2"], entry=1, exit=3).execute(universe)</span>
+<span class="sd">            &gt;&gt;&gt; t.dict_exposure(universe)</span>
+<span class="sd">            {'A0': array([0., 0., 3., 4., 0.]), 'A2': array([ 0.,  0., -5., -6.,  0.])}</span>
+<span class="sd">        """</span>
+        <span class="n">dict_exposure</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">asset</span><span class="p">:</span> <span class="n">lot</span> <span class="o">*</span> <span class="n">universe</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">asset</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            <span class="k">for</span> <span class="n">asset</span><span class="p">,</span> <span class="n">lot</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">asset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lot</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="n">i_entry</span><span class="p">,</span> <span class="n">i_close</span> <span class="o">=</span> <span class="n">universe</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_indexer</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">entry</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">dict_exposure</span><span class="p">:</span>
+            <span class="n">dict_exposure</span><span class="p">[</span><span class="n">key</span><span class="p">][:</span> <span class="nb">min</span><span class="p">(</span><span class="n">i_entry</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dict_exposure</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">dict_exposure</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="nb">min</span><span class="p">(</span><span class="n">i_close</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dict_exposure</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">:]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">dict_exposure</span></div>
+
 <div class="viewcode-block" id="Trade.exposure"><a class="viewcode-back" href="../../trade.html#epymetheus.Trade.exposure">[docs]</a>    <span class="k">def</span> <span class="nf">exposure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">universe</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
         <span class="sd">"""Return exposure of self to each asset.</span>
 
@@ -390,8 +424,7 @@
 <span class="sd">        """</span>
         <span class="n">exposure</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">universe</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">universe</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
         <span class="n">exposure</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">asset</span><span class="p">]</span> <span class="o">=</span> <span class="n">universe</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">asset</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">lot</span>
-        <span class="n">i_entry</span> <span class="o">=</span> <span class="n">universe</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_indexer</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">entry</span><span class="p">])</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-        <span class="n">i_close</span> <span class="o">=</span> <span class="n">universe</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_indexer</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">])</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="n">i_entry</span><span class="p">,</span> <span class="n">i_close</span> <span class="o">=</span> <span class="n">universe</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_indexer</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">entry</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">])</span>
         <span class="n">exposure</span><span class="p">[:</span> <span class="nb">min</span><span class="p">(</span><span class="n">i_entry</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">exposure</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">exposure</span><span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">i_close</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">exposure</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">:]</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">return</span> <span class="n">exposure</span></div>
