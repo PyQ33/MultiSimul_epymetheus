@@ -221,6 +221,45 @@ The parameter <cite>my_param</cite> controls the volume to trade.</p>
 </pre></div>
 </div>
 <dl class="py method">
+<dt class="sig sig-object py" id="epymetheus.Strategy.abs_exposure">
+<span class="sig-name descname"><span class="pre">abs_exposure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.abs_exposure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.abs_exposure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return absolute exposure of the strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>pandas.Series</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">epymetheus</span> <span class="k">as</span> <span class="nn">ep</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">universe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+<span class="gp">... </span>    <span class="s2">"A0"</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="s2">"A1"</span><span class="p">:</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="s2">"A2"</span><span class="p">:</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">],</span>
+<span class="gp">... </span><span class="p">},</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">strategy</span> <span class="o">=</span> <span class="n">ep</span><span class="o">.</span><span class="n">create_strategy</span><span class="p">(</span><span class="k">lambda</span> <span class="n">universe</span><span class="p">:</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">ep</span><span class="o">.</span><span class="n">trade</span><span class="p">([</span><span class="s2">"A0"</span><span class="p">,</span> <span class="s2">"A2"</span><span class="p">],</span> <span class="n">entry</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">exit</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">ep</span><span class="o">.</span><span class="n">trade</span><span class="p">([</span><span class="s2">"A1"</span><span class="p">,</span> <span class="s2">"A2"</span><span class="p">],</span> <span class="n">entry</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">exit</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">])</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">universe</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">strategy</span><span class="o">.</span><span class="n">exposure</span><span class="p">()</span>
+<span class="go">    A0   A1    A2</span>
+<span class="go">0  0.0  0.0   0.0</span>
+<span class="go">1  0.0  0.0   0.0</span>
+<span class="go">2  3.0  0.0  -5.0</span>
+<span class="go">3  4.0 -5.0   6.0</span>
+<span class="go">4  0.0 -6.0  14.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">strategy</span><span class="o">.</span><span class="n">abs_exposure</span><span class="p">()</span>
+<span class="go">0     0.0</span>
+<span class="go">1     0.0</span>
+<span class="go">2     8.0</span>
+<span class="go">3    15.0</span>
+<span class="go">4    20.0</span>
+<span class="go">dtype: float64</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Strategy.drawdown">
 <span class="sig-name descname"><span class="pre">drawdown</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.drawdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.drawdown" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -228,6 +267,41 @@ The parameter <cite>my_param</cite> controls the volume to trade.</p>
 <dd class="field-odd"><p>pandas.Series</p>
 </dd>
 </dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="epymetheus.Strategy.exposure">
+<span class="sig-name descname"><span class="pre">exposure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.exposure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.exposure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return exposure of self to each asset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>DataFrame of exposure.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">epymetheus</span> <span class="k">as</span> <span class="nn">ep</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">universe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+<span class="gp">... </span>    <span class="s2">"A0"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="s2">"A1"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="s2">"A2"</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+<span class="gp">... </span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">strategy</span> <span class="o">=</span> <span class="n">ep</span><span class="o">.</span><span class="n">create_strategy</span><span class="p">(</span><span class="k">lambda</span> <span class="n">universe</span><span class="p">:</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">ep</span><span class="o">.</span><span class="n">trade</span><span class="p">([</span><span class="s2">"A0"</span><span class="p">,</span> <span class="s2">"A2"</span><span class="p">],</span> <span class="n">entry</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">exit</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">ep</span><span class="o">.</span><span class="n">trade</span><span class="p">([</span><span class="s2">"A1"</span><span class="p">,</span> <span class="s2">"A2"</span><span class="p">],</span> <span class="n">entry</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">exit</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">])</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">universe</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">strategy</span><span class="o">.</span><span class="n">exposure</span><span class="p">()</span>
+<span class="go">    A0   A1    A2</span>
+<span class="go">0  0.0  0.0   0.0</span>
+<span class="go">1  0.0  0.0   0.0</span>
+<span class="go">2  3.0  0.0  -5.0</span>
+<span class="go">3  4.0 -5.0   6.0</span>
+<span class="go">4  0.0 -6.0  14.0</span>
+</pre></div>
+</div>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Strategy.get_params">
@@ -313,6 +387,45 @@ The index represents timestamps and the column is the assets.</p></li>
 <dd class="field-even"><p>iterable[Trade]</p>
 </dd>
 </dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="epymetheus.Strategy.net_exposure">
+<span class="sig-name descname"><span class="pre">net_exposure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.net_exposure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.net_exposure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return net exposure of the strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>pandas.Series</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">epymetheus</span> <span class="k">as</span> <span class="nn">ep</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">universe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+<span class="gp">... </span>    <span class="s2">"A0"</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="s2">"A1"</span><span class="p">:</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="s2">"A2"</span><span class="p">:</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">],</span>
+<span class="gp">... </span><span class="p">},</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">strategy</span> <span class="o">=</span> <span class="n">ep</span><span class="o">.</span><span class="n">create_strategy</span><span class="p">(</span><span class="k">lambda</span> <span class="n">universe</span><span class="p">:</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">ep</span><span class="o">.</span><span class="n">trade</span><span class="p">([</span><span class="s2">"A0"</span><span class="p">,</span> <span class="s2">"A2"</span><span class="p">],</span> <span class="n">entry</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">exit</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">ep</span><span class="o">.</span><span class="n">trade</span><span class="p">([</span><span class="s2">"A1"</span><span class="p">,</span> <span class="s2">"A2"</span><span class="p">],</span> <span class="n">entry</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">exit</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">])</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">universe</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">strategy</span><span class="o">.</span><span class="n">exposure</span><span class="p">()</span>
+<span class="go">    A0   A1    A2</span>
+<span class="go">0  0.0  0.0   0.0</span>
+<span class="go">1  0.0  0.0   0.0</span>
+<span class="go">2  3.0  0.0  -5.0</span>
+<span class="go">3  4.0 -5.0   6.0</span>
+<span class="go">4  0.0 -6.0  14.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">strategy</span><span class="o">.</span><span class="n">net_exposure</span><span class="p">()</span>
+<span class="go">0    0.0</span>
+<span class="go">1    0.0</span>
+<span class="go">2   -2.0</span>
+<span class="go">3    5.0</span>
+<span class="go">4    8.0</span>
+<span class="go">dtype: float64</span>
+</pre></div>
+</div>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Strategy.run">

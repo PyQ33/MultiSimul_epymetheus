@@ -225,6 +225,40 @@ It is set by the method <cite>self.execute</cite>.</p>
 </dl>
 </dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="epymetheus.Trade.abs_exposure">
+<span class="sig-name descname"><span class="pre">abs_exposure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">universe</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/trade.html#Trade.abs_exposure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Trade.abs_exposure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns net exposure of self.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>universe</strong> (<em>pandas.DataFrame</em>) – Universe.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>pandas.Series</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">epymetheus</span> <span class="k">as</span> <span class="nn">ep</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">universe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+<span class="gp">... </span>    <span class="s2">"A0"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="s2">"A1"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="s2">"A2"</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+<span class="gp">... </span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">ep</span><span class="o">.</span><span class="n">trade</span><span class="p">([</span><span class="s2">"A0"</span><span class="p">,</span> <span class="s2">"A2"</span><span class="p">],</span> <span class="n">entry</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">exit</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">universe</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span>
+<span class="go">trade(['A0' 'A2'], lot=[ 1. -1.], entry=1, exit=3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">abs_exposure</span><span class="p">(</span><span class="n">universe</span><span class="p">)</span>
+<span class="go">0     0.0</span>
+<span class="go">1     0.0</span>
+<span class="go">2     8.0</span>
+<span class="go">3    10.0</span>
+<span class="go">4     0.0</span>
+<span class="go">dtype: float64</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Trade.array_value">
 <span class="sig-name descname"><span class="pre">array_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">universe</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/trade.html#Trade.array_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Trade.array_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return value of self for each asset.</p>
@@ -295,6 +329,41 @@ shape (n_bars, n_orders)</p>
 </div>
 </dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="epymetheus.Trade.exposure">
+<span class="sig-name descname"><span class="pre">exposure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">universe</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/trade.html#Trade.exposure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Trade.exposure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return exposure of self to each asset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>universe</strong> (<em>pandas.DataFrame</em>) – DataFrame of prices.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>DataFrame of exposure.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">epymetheus</span> <span class="k">as</span> <span class="nn">ep</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">universe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+<span class="gp">... </span>    <span class="s2">"A0"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="s2">"A1"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="s2">"A2"</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+<span class="gp">... </span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">ep</span><span class="o">.</span><span class="n">trade</span><span class="p">([</span><span class="s2">"A0"</span><span class="p">,</span> <span class="s2">"A2"</span><span class="p">],</span> <span class="n">entry</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">exit</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">universe</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">exposure</span><span class="p">(</span><span class="n">universe</span><span class="p">)</span>
+<span class="go">    A0   A1   A2</span>
+<span class="go">0  0.0  0.0  0.0</span>
+<span class="go">1  0.0  0.0  0.0</span>
+<span class="go">2  3.0  0.0 -5.0</span>
+<span class="go">3  4.0  0.0 -6.0</span>
+<span class="go">4  0.0  0.0  0.0</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Trade.final_pnl">
 <span class="sig-name descname"><span class="pre">final_pnl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">universe</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/trade.html#Trade.final_pnl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Trade.final_pnl" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return final profit-loss of self.</p>
@@ -311,7 +380,7 @@ shape (n_bars, n_orders)</p>
 <span class="gp">... </span>    <span class="s2">"A0"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="s2">"A1"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="s2">"A2"</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
-<span class="gp">... </span><span class="p">},</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="gp">... </span><span class="p">})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">ep</span><span class="o">.</span><span class="n">trade</span><span class="p">([</span><span class="s2">"A0"</span><span class="p">,</span> <span class="s2">"A2"</span><span class="p">],</span> <span class="n">entry</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">exit</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">universe</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">final_pnl</span><span class="p">(</span><span class="n">universe</span><span class="p">)</span>
@@ -357,6 +426,40 @@ shape (n_bars, n_orders)</p>
 <dd class="field-even"><p>Trade</p>
 </dd>
 </dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="epymetheus.Trade.net_exposure">
+<span class="sig-name descname"><span class="pre">net_exposure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">universe</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/trade.html#Trade.net_exposure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Trade.net_exposure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns net exposure of self.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>universe</strong> (<em>pandas.DataFrame</em>) – Universe.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>pandas.Series</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">epymetheus</span> <span class="k">as</span> <span class="nn">ep</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">universe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+<span class="gp">... </span>    <span class="s2">"A0"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="s2">"A1"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="s2">"A2"</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+<span class="gp">... </span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">ep</span><span class="o">.</span><span class="n">trade</span><span class="p">([</span><span class="s2">"A0"</span><span class="p">,</span> <span class="s2">"A2"</span><span class="p">],</span> <span class="n">entry</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">exit</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">universe</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span>
+<span class="go">trade(['A0' 'A2'], lot=[ 1. -1.], entry=1, exit=3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">net_exposure</span><span class="p">(</span><span class="n">universe</span><span class="p">)</span>
+<span class="go">0    0.0</span>
+<span class="go">1    0.0</span>
+<span class="go">2   -2.0</span>
+<span class="go">3   -2.0</span>
+<span class="go">4    0.0</span>
+<span class="go">dtype: float64</span>
+</pre></div>
+</div>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Trade.to_dict">

@@ -493,21 +493,112 @@
 
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">drawdown</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">universe</span><span class="o">.</span><span class="n">index</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">net_exposure</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+<div class="viewcode-block" id="Strategy.exposure"><a class="viewcode-back" href="../../../strategy.html#epymetheus.Strategy.exposure">[docs]</a>    <span class="k">def</span> <span class="nf">exposure</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="sd">"""Return exposure of self to each asset.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pandas.DataFrame: DataFrame of exposure.</span>
+
+<span class="sd">        Examples:</span>
+
+<span class="sd">            &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">            &gt;&gt;&gt; import epymetheus as ep</span>
+<span class="sd">            ...</span>
+<span class="sd">            &gt;&gt;&gt; universe = pd.DataFrame({</span>
+<span class="sd">            ...     "A0": [1, 2, 3, 4, 5],</span>
+<span class="sd">            ...     "A1": [2, 3, 4, 5, 6],</span>
+<span class="sd">            ...     "A2": [3, 4, 5, 6, 7],</span>
+<span class="sd">            ... })</span>
+<span class="sd">            &gt;&gt;&gt; strategy = ep.create_strategy(lambda universe: [</span>
+<span class="sd">            ...     [1, -1] * ep.trade(["A0", "A2"], entry=1, exit=3),</span>
+<span class="sd">            ...     [-1, 2] * ep.trade(["A1", "A2"], entry=2, exit=4),</span>
+<span class="sd">            ... ]).run(universe, verbose=False)</span>
+<span class="sd">            &gt;&gt;&gt; strategy.exposure()</span>
+<span class="sd">                A0   A1    A2</span>
+<span class="sd">            0  0.0  0.0   0.0</span>
+<span class="sd">            1  0.0  0.0   0.0</span>
+<span class="sd">            2  3.0  0.0  -5.0</span>
+<span class="sd">            3  4.0 -5.0   6.0</span>
+<span class="sd">            4  0.0 -6.0  14.0</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"trades"</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">NotRunError</span><span class="p">(</span><span class="s2">"Strategy has not been run"</span><span class="p">)</span>
 
-        <span class="n">exposure</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">net_exposure</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">universe</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">exposure</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">universe</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="p">))</span></div>
 
-        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">exposure</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">universe</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<div class="viewcode-block" id="Strategy.net_exposure"><a class="viewcode-back" href="../../../strategy.html#epymetheus.Strategy.net_exposure">[docs]</a>    <span class="k">def</span> <span class="nf">net_exposure</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+        <span class="sd">"""Return net exposure of the strategy.</span>
 
-    <span class="k">def</span> <span class="nf">abs_exposure</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"trades"</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">NotRunError</span><span class="p">(</span><span class="s2">"Strategy has not been run"</span><span class="p">)</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            pandas.Series</span>
 
-        <span class="n">exposure</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">abs_exposure</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">universe</span><span class="p">)</span>
+<span class="sd">        Examples:</span>
 
-        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">exposure</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">universe</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="sd">            &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">            &gt;&gt;&gt; import epymetheus as ep</span>
+<span class="sd">            ...</span>
+<span class="sd">            &gt;&gt;&gt; universe = pd.DataFrame({</span>
+<span class="sd">            ...     "A0": [1.0, 2.0, 3.0, 4.0, 5.0],</span>
+<span class="sd">            ...     "A1": [2.0, 3.0, 4.0, 5.0, 6.0],</span>
+<span class="sd">            ...     "A2": [3.0, 4.0, 5.0, 6.0, 7.0],</span>
+<span class="sd">            ... }, dtype=float)</span>
+<span class="sd">            &gt;&gt;&gt; strategy = ep.create_strategy(lambda universe: [</span>
+<span class="sd">            ...     [1, -1] * ep.trade(["A0", "A2"], entry=1, exit=3),</span>
+<span class="sd">            ...     [-1, 2] * ep.trade(["A1", "A2"], entry=2, exit=4),</span>
+<span class="sd">            ... ]).run(universe, verbose=False)</span>
+<span class="sd">            &gt;&gt;&gt; strategy.exposure()</span>
+<span class="sd">                A0   A1    A2</span>
+<span class="sd">            0  0.0  0.0   0.0</span>
+<span class="sd">            1  0.0  0.0   0.0</span>
+<span class="sd">            2  3.0  0.0  -5.0</span>
+<span class="sd">            3  4.0 -5.0   6.0</span>
+<span class="sd">            4  0.0 -6.0  14.0</span>
+<span class="sd">            &gt;&gt;&gt; strategy.net_exposure()</span>
+<span class="sd">            0    0.0</span>
+<span class="sd">            1    0.0</span>
+<span class="sd">            2   -2.0</span>
+<span class="sd">            3    5.0</span>
+<span class="sd">            4    8.0</span>
+<span class="sd">            dtype: float64</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">exposure</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Strategy.abs_exposure"><a class="viewcode-back" href="../../../strategy.html#epymetheus.Strategy.abs_exposure">[docs]</a>    <span class="k">def</span> <span class="nf">abs_exposure</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+        <span class="sd">"""Return absolute exposure of the strategy.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pandas.Series</span>
+
+<span class="sd">        Examples:</span>
+
+<span class="sd">            &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">            &gt;&gt;&gt; import epymetheus as ep</span>
+<span class="sd">            ...</span>
+<span class="sd">            &gt;&gt;&gt; universe = pd.DataFrame({</span>
+<span class="sd">            ...     "A0": [1.0, 2.0, 3.0, 4.0, 5.0],</span>
+<span class="sd">            ...     "A1": [2.0, 3.0, 4.0, 5.0, 6.0],</span>
+<span class="sd">            ...     "A2": [3.0, 4.0, 5.0, 6.0, 7.0],</span>
+<span class="sd">            ... }, dtype=float)</span>
+<span class="sd">            &gt;&gt;&gt; strategy = ep.create_strategy(lambda universe: [</span>
+<span class="sd">            ...     [1, -1] * ep.trade(["A0", "A2"], entry=1, exit=3),</span>
+<span class="sd">            ...     [-1, 2] * ep.trade(["A1", "A2"], entry=2, exit=4),</span>
+<span class="sd">            ... ]).run(universe, verbose=False)</span>
+<span class="sd">            &gt;&gt;&gt; strategy.exposure()</span>
+<span class="sd">                A0   A1    A2</span>
+<span class="sd">            0  0.0  0.0   0.0</span>
+<span class="sd">            1  0.0  0.0   0.0</span>
+<span class="sd">            2  3.0  0.0  -5.0</span>
+<span class="sd">            3  4.0 -5.0   6.0</span>
+<span class="sd">            4  0.0 -6.0  14.0</span>
+<span class="sd">            &gt;&gt;&gt; strategy.abs_exposure()</span>
+<span class="sd">            0     0.0</span>
+<span class="sd">            1     0.0</span>
+<span class="sd">            2     8.0</span>
+<span class="sd">            3    15.0</span>
+<span class="sd">            4    20.0</span>
+<span class="sd">            dtype: float64</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">exposure</span><span class="p">()</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Strategy.get_params"><a class="viewcode-back" href="../../../strategy.html#epymetheus.Strategy.get_params">[docs]</a>    <span class="k">def</span> <span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">"""Set the parameters of this strategy.</span>
