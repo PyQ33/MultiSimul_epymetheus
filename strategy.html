@@ -5,11 +5,11 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="epymetheus.Trade" href="trade.html" /><link rel="prev" title="Epymetheus Documentation" href="index.html" />
 
-    <meta name="generator" content="sphinx-4.3.1, furo 2021.11.23"/>
+    <meta name="generator" content="sphinx-4.4.0, furo 2022.02.14.1"/>
         <title>epymetheus.Strategy - Epymetheus documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=7f0192ddeb2adecfbaa87ffbcf67d16358b30bc1" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=0af69da206d614734f649b27d4cdc2dd6c31f41d" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=a8f031f701c6af50c9919b48f173a5785af06fac" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=25ceb02ed1c46dc30f2321ff83e92799f69dfdb9" />
     
     
 
@@ -41,17 +41,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="svg-toc" viewBox="0 0 24 24">
     <title>Contents</title>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path stroke="none" d="M0 0h24v24H0z" />
-      <line x1="4" y1="6" x2="20" y2="6" />
-      <line x1="10" y1="12" x2="20" y2="12" />
-      <line x1="6" y1="18" x2="20" y2="18" />
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
     </svg>
   </symbol>
   <symbol id="svg-menu" viewBox="0 0 24 24">
     <title>Menu</title>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
       stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
       <line x1="3" y1="12" x2="21" y2="12"></line>
       <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -60,14 +56,14 @@
   </symbol>
   <symbol id="svg-arrow-right" viewBox="0 0 24 24">
     <title>Expand</title>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
       stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
       <polyline points="9 18 15 12 9 6"></polyline>
     </svg>
   </symbol>
   <symbol id="svg-sun" viewBox="0 0 24 24">
     <title>Light mode</title>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
       stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
       <circle cx="12" cy="12" r="5"></circle>
       <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -82,7 +78,7 @@
   </symbol>
   <symbol id="svg-moon" viewBox="0 0 24 24">
     <title>Dark mode</title>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
       stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
@@ -90,7 +86,7 @@
   </symbol>
   <symbol id="svg-sun-half" viewBox="0 0 24 24">
     <title>Auto light/dark mode</title>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
       stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
       <circle cx="12" cy="12" r="9" />
@@ -167,6 +163,7 @@
 
 </div>
 </div>
+
       </div>
       
     </div>
@@ -174,8 +171,7 @@
   <div class="main">
     <div class="content">
       <div class="article-container">
-        <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -190,10 +186,10 @@
         </div>
         <article role="main">
           <section id="epymetheus-strategy">
-<h1>epymetheus.Strategy<a class="headerlink" href="#epymetheus-strategy" title="Permalink to this headline">¶</a></h1>
+<h1>epymetheus.Strategy<a class="headerlink" href="#epymetheus-strategy" title="Permalink to this headline">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="epymetheus.create_strategy">
-<span class="sig-prename descclassname"><span class="pre">epymetheus.</span></span><span class="sig-name descname"><span class="pre">create_strategy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#create_strategy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.create_strategy" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">epymetheus.</span></span><span class="sig-name descname"><span class="pre">create_strategy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#create_strategy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.create_strategy" title="Permalink to this definition">#</a></dt>
 <dd><p>Create a <a class="reference internal" href="#epymetheus.Strategy" title="epymetheus.Strategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">Strategy</span></code></a> from a function.</p>
 <p>A function <cite>fn</cite> takes more than one parameters.
 The first parameter should be <cite>universe</cite>, which is a <cite>pandas.DataFrame</cite>
@@ -235,7 +231,7 @@ The parameter <cite>my_param</cite> controls the volume to trade.</p>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="epymetheus.Strategy">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">epymetheus.</span></span><span class="sig-name descname"><span class="pre">Strategy</span></span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">epymetheus.</span></span><span class="sig-name descname"><span class="pre">Strategy</span></span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy" title="Permalink to this definition">#</a></dt>
 <dd><p>Base class of trading strategy.</p>
 <p>There are two ways to create a <a class="reference internal" href="#epymetheus.Strategy" title="epymetheus.Strategy"><code class="xref py py-class docutils literal notranslate"><span class="pre">Strategy</span></code></a>:</p>
 <ul class="simple">
@@ -280,7 +276,7 @@ The parameter <cite>my_param</cite> controls the volume to trade.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Strategy.abs_exposure">
-<span class="sig-name descname"><span class="pre">abs_exposure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.abs_exposure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.abs_exposure" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">abs_exposure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.abs_exposure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.abs_exposure" title="Permalink to this definition">#</a></dt>
 <dd><p>Return absolute exposure of the strategy.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -319,7 +315,7 @@ The parameter <cite>my_param</cite> controls the volume to trade.</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Strategy.drawdown">
-<span class="sig-name descname"><span class="pre">drawdown</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.drawdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.drawdown" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">drawdown</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.drawdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.drawdown" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>pandas.Series</p>
@@ -328,7 +324,7 @@ The parameter <cite>my_param</cite> controls the volume to trade.</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Strategy.exposure">
-<span class="sig-name descname"><span class="pre">exposure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.exposure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.exposure" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">exposure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.exposure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.exposure" title="Permalink to this definition">#</a></dt>
 <dd><p>Return exposure of self to each asset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -363,7 +359,7 @@ The parameter <cite>my_param</cite> controls the volume to trade.</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Strategy.get_params">
-<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.get_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.get_params" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.get_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.get_params" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the parameters of this strategy.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -373,7 +369,7 @@ The parameter <cite>my_param</cite> controls the volume to trade.</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Strategy.history">
-<span class="sig-name descname"><span class="pre">history</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.history"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.history" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">history</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.history"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.history" title="Permalink to this definition">#</a></dt>
 <dd><p>Return <cite>pandas.DataFrame</cite> of trade history.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -383,7 +379,7 @@ The parameter <cite>my_param</cite> controls the volume to trade.</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Strategy.load">
-<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">history</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">universe</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.load" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">history</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">universe</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.load" title="Permalink to this definition">#</a></dt>
 <dd><p>Load trade history and universe.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -399,7 +395,7 @@ The parameter <cite>my_param</cite> controls the volume to trade.</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Strategy.load_trades_dict">
-<span class="sig-name descname"><span class="pre">load_trades_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.load_trades_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.load_trades_dict" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">load_trades_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.load_trades_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.load_trades_dict" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>l</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – </p>
@@ -408,7 +404,7 @@ The parameter <cite>my_param</cite> controls the volume to trade.</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Strategy.load_trades_json">
-<span class="sig-name descname"><span class="pre">load_trades_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.load_trades_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.load_trades_json" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">load_trades_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.load_trades_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.load_trades_json" title="Permalink to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>s</strong> (<em>str</em>) – </p>
@@ -417,7 +413,7 @@ The parameter <cite>my_param</cite> controls the volume to trade.</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Strategy.load_universe">
-<span class="sig-name descname"><span class="pre">load_universe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">universe</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.load_universe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.load_universe" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">load_universe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">universe</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.load_universe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.load_universe" title="Permalink to this definition">#</a></dt>
 <dd><p>Load universe.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -430,7 +426,7 @@ The parameter <cite>my_param</cite> controls the volume to trade.</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Strategy.logic">
-<span class="sig-name descname"><span class="pre">logic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">universe</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.logic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.logic" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">logic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">universe</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.logic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.logic" title="Permalink to this definition">#</a></dt>
 <dd><p>Logic to generate trades from universe.</p>
 <p>Override this to implement trading strategy by subclassing <cite>Strategy</cite>.</p>
 <dl class="field-list simple">
@@ -448,7 +444,7 @@ The index represents timestamps and the column is the assets.</p></li>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Strategy.net_exposure">
-<span class="sig-name descname"><span class="pre">net_exposure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.net_exposure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.net_exposure" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">net_exposure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.net_exposure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.net_exposure" title="Permalink to this definition">#</a></dt>
 <dd><p>Return net exposure of the strategy.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -487,7 +483,7 @@ The index represents timestamps and the column is the assets.</p></li>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Strategy.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">universe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_trades</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.run" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">universe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_trades</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.run" title="Permalink to this definition">#</a></dt>
 <dd><p>Run a backtesting of strategy.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -505,7 +501,7 @@ The index represents timestamps and the column is the assets.</p></li>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Strategy.score">
-<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.score" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.score" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the value of a metric of self.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -518,7 +514,7 @@ The index represents timestamps and the column is the assets.</p></li>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Strategy.set_params">
-<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.set_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.set_params" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.set_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.set_params" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the parameters of this strategy.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -531,7 +527,7 @@ The index represents timestamps and the column is the assets.</p></li>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Strategy.trades_to_dict">
-<span class="sig-name descname"><span class="pre">trades_to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.trades_to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.trades_to_dict" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">trades_to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.trades_to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.trades_to_dict" title="Permalink to this definition">#</a></dt>
 <dd><p>Represents and returns <cite>trades</cite> as <cite>dict</cite> objects.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -551,7 +547,7 @@ The index represents timestamps and the column is the assets.</p></li>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Strategy.trades_to_json">
-<span class="sig-name descname"><span class="pre">trades_to_json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.trades_to_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.trades_to_json" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">trades_to_json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.trades_to_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.trades_to_json" title="Permalink to this definition">#</a></dt>
 <dd><p>Represents and returns <cite>trades</cite> as a string in JSON format.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -578,7 +574,7 @@ The index represents timestamps and the column is the assets.</p></li>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="epymetheus.Strategy.wealth">
-<span class="sig-name descname"><span class="pre">wealth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.wealth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.wealth" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">wealth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/base.html#Strategy.wealth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.Strategy.wealth" title="Permalink to this definition">#</a></dt>
 <dd><p>Return <cite>pandas.Series</cite> of wealth.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -589,7 +585,7 @@ The index represents timestamps and the column is the assets.</p></li>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="epymetheus.strategy.StrategyList">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">epymetheus.strategy.</span></span><span class="sig-name descname"><span class="pre">StrategyList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strategies</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/container.html#StrategyList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.strategy.StrategyList" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">epymetheus.strategy.</span></span><span class="sig-name descname"><span class="pre">StrategyList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strategies</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/container.html#StrategyList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.strategy.StrategyList" title="Permalink to this definition">#</a></dt>
 <dd><p>Hold substrategies in a list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -611,7 +607,7 @@ The index represents timestamps and the column is the assets.</p></li>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="epymetheus.strategy.StrategyDict">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">epymetheus.strategy.</span></span><span class="sig-name descname"><span class="pre">StrategyDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strategies</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/container.html#StrategyDict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.strategy.StrategyDict" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">epymetheus.strategy.</span></span><span class="sig-name descname"><span class="pre">StrategyDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strategies</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/epymetheus/strategy/container.html#StrategyDict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#epymetheus.strategy.StrategyDict" title="Permalink to this definition">#</a></dt>
 <dd><p>Hold substrategies in a dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -659,15 +655,21 @@ The index represents timestamps and the column is the assets.</p></li>
               </div>
             </a>
         </div>
-
-        <div class="related-information">
-              Copyright &#169; 2021, Shota Imaki |
-          Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
-          <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
-            | <a class="muted-link" href="_sources/strategy.rst.txt"
-               rel="nofollow">
-              Show Source
-            </a>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2021, Shota Imaki
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              
+            </div>
+          </div>
         </div>
         
       </footer>
